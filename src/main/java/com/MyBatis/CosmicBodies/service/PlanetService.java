@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PlanetService {
+public class PlanetService implements CommonService<PlanetDto> {
     private final PlanetBatisMapper planetBatisMapper;
     private final SatelliteBatisMapper satelliteBatisMapper;
 

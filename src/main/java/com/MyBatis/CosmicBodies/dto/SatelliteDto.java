@@ -1,6 +1,5 @@
 package com.MyBatis.CosmicBodies.dto;
 
-import com.MyBatis.CosmicBodies.entity.planet.Planet;
 import com.MyBatis.CosmicBodies.entity.satellite.composition.Composition;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -13,23 +13,19 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.DELETE_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.INSERT;
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.SELECT_ALL;
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.SELECT_ALL_BY_PLANET;
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.SELECT_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.SatelliteSQLConstants.UPDATE;
+
 @Mapper
 public interface SatelliteBatisMapper {
-    String findAll = "SELECT * FROM satellites";
-    String findById = "SELECT * FROM satellites WHERE id = #{id}";
-    String deleteById = "DELETE FROM satellites WHERE id = #{id}";
-    String insert = "INSERT INTO satellites(name, diameter, distance_from_parent_planet, composition, planet) " +
-            "VALUES(#{name}, #{diameter}, #{distanceFromParentPlanet}, #{composition}, #{planet.id})";
-    String update = "UPDATE satellites " +
-            "SET name = #{name}, diameter = #{diameter}, distance_from_parent_planet = #{distanceFromParentPlanet}, " +
-            "composition = #{composition}, planet = #{planet.id} " +
-            "WHERE id = #{id}";
-    String findAllByPlanet = "SELECT * FROM satellites WHERE planet = #{id}";
-
-    @Select(findAllByPlanet)
+    @Select(SELECT_ALL_BY_PLANET)
     List<Satellite> findAllByPlanet(Long id);
 
-    @Select(findAll)
+    @Select(SELECT_ALL)
     @Result(
             property = "planet",
             column = "planet",
@@ -37,7 +33,7 @@ public interface SatelliteBatisMapper {
             one = @One(select = "com.MyBatis.CosmicBodies.batisMapper.PlanetBatisMapper.findById"))
     List<Satellite> findAll();
 
-    @Select(findById)
+    @Select(SELECT_BY_ID)
     @Result(
             property = "planet",
             column = "planet",
@@ -45,13 +41,13 @@ public interface SatelliteBatisMapper {
             one = @One(select = "com.MyBatis.CosmicBodies.batisMapper.PlanetBatisMapper.findById"))
     Satellite findById(Long id);
 
-    @Insert(insert)
+    @Insert(INSERT)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Satellite satellite);
 
-    @Update(update)
+    @Update(UPDATE)
     void update(Satellite satellite);
 
-    @Delete(deleteById)
+    @Delete(DELETE_BY_ID)
     void deleteById(Long id);
 }

@@ -13,30 +13,28 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+
 import java.util.List;
 
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.DELETE_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.INSERT;
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.SELECT_ALL;
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.SELECT_ALL_BY_STAR;
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.SELECT_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.PlanetSQLConstants.UPDATE;
+
+
 @Mapper
-public interface PlanetBatisMapper {
+public interface PlanetBatisMapper{
 
-    String findAll = "SELECT * FROM planets";
-    String findById = "SELECT * FROM planets WHERE id = #{id}";
-    String deleteById = "DELETE FROM planets WHERE id = #{id}";
-    String insert = "INSERT INTO planets (name, diameter, radius, distance_from_star, size, composition, star, number_of_satellites) " +
-            "VALUES (#{name}, #{diameter}, #{radius}, #{distanceFromStar}, #{size}, #{composition}, #{star.id} #{numberOfSatellites})";
-    String update = "UPDATE planets SET name = #{name}, diameter = #{diameter}, radius = #{radius}, " +
-            "distance_from_star = #{distanceFromStar}, size = #{size}, composition = #{composition}, " +
-            "star = #{star.id}, number_of_satellites = #{numberOfSatellites} WHERE id = #{id}";
-
-    String findAllByStar = "SELECT * FROM planets WHERE star = #{id}";
-
-    @Select(findAllByStar)
+    @Select(SELECT_ALL_BY_STAR)
     List<Planet> findAllByStar(Long id);
 
-    @Insert(insert)
+    @Insert(INSERT)
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Planet planet);
 
-    @Select(findById)
+    @Select(SELECT_BY_ID)
     @Results({
             @Result(
                     property = "id",
@@ -56,7 +54,7 @@ public interface PlanetBatisMapper {
     })
     Planet findById(Long id);
 
-    @Select(findAll)
+    @Select(SELECT_ALL)
     @Results({
             @Result(
                     property = "id",
@@ -76,9 +74,9 @@ public interface PlanetBatisMapper {
     })
     List<Planet> findAll();
 
-    @Update(update)
+    @Update(UPDATE)
     void update(Planet planet);
 
-    @Delete(deleteById)
+    @Delete(DELETE_BY_ID)
     void deleteById(Long id);
 }

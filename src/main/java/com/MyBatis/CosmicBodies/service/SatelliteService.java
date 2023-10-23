@@ -2,15 +2,14 @@ package com.MyBatis.CosmicBodies.service;
 
 import com.MyBatis.CosmicBodies.batisMapper.SatelliteBatisMapper;
 import com.MyBatis.CosmicBodies.dto.SatelliteDto;
-import com.MyBatis.CosmicBodies.entity.satellite.Satellite;
 import com.MyBatis.CosmicBodies.entityMapper.SatelliteMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class SatelliteService {
+public class SatelliteService implements CommonService<SatelliteDto> {
     private final SatelliteBatisMapper satelliteBatisMapper;
 
     public SatelliteService(SatelliteBatisMapper satelliteBatisMapper) {
@@ -18,17 +17,9 @@ public class SatelliteService {
     }
 
     public List<SatelliteDto> findAll() {
-        List<Satellite> satellites = satelliteBatisMapper.findAll();
-
-        List<SatelliteDto> satelliteDtoList = new ArrayList<>();
-
-        for (Satellite satellite : satellites) {
-            satelliteDtoList.add(SatelliteMapper.toDto(satellite));
-        }
-        return satelliteDtoList;
-/*        return satelliteBatisMapper.findAll().stream()
+        return satelliteBatisMapper.findAll().stream()
                 .map(SatelliteMapper::toDto)
-                .collect(Collectors.toList());*/
+                .collect(Collectors.toList());
     }
 
     public SatelliteDto findById(Long id) {

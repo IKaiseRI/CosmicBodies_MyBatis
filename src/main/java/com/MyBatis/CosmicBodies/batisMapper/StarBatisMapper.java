@@ -12,22 +12,16 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+import static com.MyBatis.CosmicBodies.constant.StarSQLConstants.DELETE_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.StarSQLConstants.INSERT;
+import static com.MyBatis.CosmicBodies.constant.StarSQLConstants.SELECT_ALL;
+import static com.MyBatis.CosmicBodies.constant.StarSQLConstants.SELECT_BY_ID;
+import static com.MyBatis.CosmicBodies.constant.StarSQLConstants.UPDATE;
+
 @Mapper
 public interface StarBatisMapper {
-    String findAll = "SELECT * FROM stars";
-    String findById = "SELECT * FROM stars WHERE id = #{id}";
-    String deleteById = "DELETE FROM stars Where id = #{id}";
-    String insert = "INSERT INTO stars (name, size, type, color, number_of_planets) " +
-            "VALUES (#{name}, #{size}, #{type}, #{color}, #{numberOfPlanets})";
-    String update = "UPDATE stars " +
-            "SET name = #{name}, " +
-            "    size = #{size}, " +
-            "    type = #{type}, " +
-            "    color = #{color}, " +
-            "    number_of_planets = #{numberOfPlanets} " +
-            "WHERE id = #{id}";
 
-    @Select(findAll)
+    @Select(SELECT_ALL)
     @Results({
             @Result(
                     property = "id",
@@ -41,7 +35,7 @@ public interface StarBatisMapper {
     })
     List<Star> findAll();
 
-    @Select(findById)
+    @Select(SELECT_BY_ID)
     @Results({
             @Result(
                     property = "id",
@@ -55,12 +49,12 @@ public interface StarBatisMapper {
     })
     Star findById(Long id);
 
-    @Insert(insert)
+    @Insert(INSERT)
     void insert(Star star);
 
-    @Update(update)
+    @Update(UPDATE)
     void update(Star star);
 
-    @Delete(deleteById)
+    @Delete(DELETE_BY_ID)
     void deleteById(Long id);
 }
