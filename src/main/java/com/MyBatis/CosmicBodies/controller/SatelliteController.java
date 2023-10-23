@@ -1,7 +1,6 @@
 package com.MyBatis.CosmicBodies.controller;
 
 import com.MyBatis.CosmicBodies.dto.SatelliteDto;
-import com.MyBatis.CosmicBodies.entity.satellite.Satellite;
 import com.MyBatis.CosmicBodies.service.SatelliteService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +27,14 @@ public class SatelliteController {
 
     @PostMapping
     public void createSatellite(@RequestBody SatelliteDto satelliteDto) {
-        satelliteService.insert(satelliteDto);
+        satelliteService.create(satelliteDto);
     }
 
     @PutMapping("/{id}")
-    public void updateSatellite(@PathVariable Long id, @RequestBody SatelliteDto satelliteDto) {
+    public void updateSatellite(
+            @PathVariable Long id,
+            @RequestBody SatelliteDto satelliteDto
+    ) {
         satelliteDto.setId(id);
         satelliteService.update(satelliteDto);
     }

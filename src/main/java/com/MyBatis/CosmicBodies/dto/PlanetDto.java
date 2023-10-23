@@ -1,7 +1,7 @@
 package com.MyBatis.CosmicBodies.dto;
 
-import com.MyBatis.CosmicBodies.entity.planet.PlanetType;
-import com.MyBatis.CosmicBodies.entity.satellite.Satellite;
+import com.MyBatis.CosmicBodies.entity.planet.tipisation.Composition;
+import com.MyBatis.CosmicBodies.entity.planet.tipisation.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +22,9 @@ public class PlanetDto {
     private double diameter;
     private double radius;
     private double distanceFromStar;
-    private PlanetType planetType;
+    private Size size;
+    private Composition composition;
     private int numberOfSatellites;
+    private String star;
     private List<String> satelliteList = new ArrayList<>();
 }

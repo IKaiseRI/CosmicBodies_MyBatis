@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SatelliteMapper {
 
-    public SatelliteDto toDto(Satellite satellite) {
+    public static SatelliteDto toDto(Satellite satellite) {
         return SatelliteDto.builder()
                 .id(satellite.getId())
                 .name(satellite.getName())
@@ -18,7 +18,7 @@ public class SatelliteMapper {
                 .build();
     }
 
-    public Satellite toEntity(SatelliteDto satelliteDto) {
+    public static Satellite toEntity(SatelliteDto satelliteDto) {
         return Satellite.builder()
                 .id(satelliteDto.getId())
                 .name(satelliteDto.getName())

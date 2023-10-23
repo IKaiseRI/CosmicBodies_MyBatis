@@ -1,8 +1,7 @@
-package com.MyBatis.CosmicBodies.entity.star;
+package com.MyBatis.CosmicBodies.dto;
 
-import com.MyBatis.CosmicBodies.entity.planet.Planet;
-import com.MyBatis.CosmicBodies.entity.star.characteristic.Size;
 import com.MyBatis.CosmicBodies.entity.star.characteristic.Color;
+import com.MyBatis.CosmicBodies.entity.star.characteristic.Size;
 import com.MyBatis.CosmicBodies.entity.star.characteristic.Type;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,22 +12,17 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Star {
+public class StarDto {
     private Long id;
     private String name;
     private Size size;
     private Type type;
     private Color color;
     private int numberOfPlanets;
-    private List<Planet> listOfPlanets = new ArrayList<>();
-
-    public void addPlanet(Planet planet) {
-        planet.setStar(this);
-        listOfPlanets.add(planet);
-    }
+    private List<String> listOfPlanets = new ArrayList<>();
 }

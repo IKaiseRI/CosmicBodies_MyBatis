@@ -8,34 +8,39 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SatelliteService {
     private final SatelliteBatisMapper satelliteBatisMapper;
-    private final SatelliteMapper satelliteMapper;
 
-    public SatelliteService(SatelliteBatisMapper satelliteBatisMapper, SatelliteMapper satelliteMapper) {
+    public SatelliteService(SatelliteBatisMapper satelliteBatisMapper) {
         this.satelliteBatisMapper = satelliteBatisMapper;
-        this.satelliteMapper = satelliteMapper;
     }
 
     public List<SatelliteDto> findAll() {
-        return satelliteBatisMapper.findAll().stream()
-                .map(satelliteMapper::toDto)
-                .collect(Collectors.toList());
+        List<Satellite> satellites = satelliteBatisMapper.findAll();
+
+        List<SatelliteDto> satelliteDtoList = new ArrayList<>();
+
+        for (Satellite satellite : satellites) {
+            satelliteDtoList.add(SatelliteMapper.toDto(satellite));
+        }
+        return satelliteDtoList;
+/*        return satelliteBatisMapper.findAll().stream()
+                .map(SatelliteMapper::toDto)
+                .collect(Collectors.toList());*/
     }
 
     public SatelliteDto findById(Long id) {
-        return satelliteMapper.toDto(satelliteBatisMapper.findById(id));
+        return SatelliteMapper.toDto(satelliteBatisMapper.findById(id));
     }
 
-    public void insert(SatelliteDto satelliteDto) {
-        satelliteBatisMapper.insert(satelliteMapper.toEntity(satelliteDto));
+    public void create(SatelliteDto satelliteDto) {
+        satelliteBatisMapper.insert(SatelliteMapper.toEntity(satelliteDto));
     }
 
     public void update(SatelliteDto satelliteDto) {
-        satelliteBatisMapper.update(satelliteMapper.toEntity(satelliteDto));
+        satelliteBatisMapper.update(SatelliteMapper.toEntity(satelliteDto));
     }
 
     public void deleteById(Long id) {
